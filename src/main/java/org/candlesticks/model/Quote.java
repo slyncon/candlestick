@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class Quote {
     private String isin;
     private Double price;
-    //
 }
