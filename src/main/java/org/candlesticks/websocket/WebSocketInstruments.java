@@ -9,10 +9,9 @@ import java.io.Reader;
 import java.io.StringReader;
 
 @Component
-public class WebSocketStreams implements CommandLineRunner {
+public class WebSocketInstruments implements CommandLineRunner {
 
     private static final String WS_INSTRUMENTS = "ws://localhost:8032/instruments";
-    private static final String WS_QUOTES = "ws://localhost:8032/quotes";
 
     @Override
     public void run(String... args) throws Exception {
@@ -35,6 +34,7 @@ public class WebSocketStreams implements CommandLineRunner {
                 })
                 .transport(Request.TRANSPORT.WEBSOCKET)                        // Try WebSocket
                 .transport(Request.TRANSPORT.LONG_POLLING);                    // Fallback to Long-Polling
+
 
         Socket socket = client.create();
         socket.on(new Function<Reader>() {
@@ -59,5 +59,6 @@ public class WebSocketStreams implements CommandLineRunner {
                 }).open(instrumentsRequest.build())
                 .fire("echo")
                 .fire("bong");
+
     }
 }
