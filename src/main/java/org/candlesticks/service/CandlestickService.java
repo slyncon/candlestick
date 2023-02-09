@@ -12,4 +12,8 @@ public class CandlestickService implements CandlestickManager{
     public List<Candlestick> getCandleSticks(String isin) {
         return List.of(new Candlestick(), new Candlestick());
     }
+
+    // indices for SQL.
+    // Replica db - only for fetching and reading, another DB for writing.
+
 }
