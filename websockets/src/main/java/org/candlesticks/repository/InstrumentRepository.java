@@ -1,6 +1,6 @@
-package repository;
+package org.candlesticks.repository;
 
-import model.Instrument;
+import org.candlesticks.model.Instrument;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Component;

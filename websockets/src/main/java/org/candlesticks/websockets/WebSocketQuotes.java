@@ -1,4 +1,4 @@
-package websocket;
+package org.candlesticks.websockets;
 
 import org.atmosphere.wasync.*;
 import org.springframework.boot.CommandLineRunner;
@@ -9,17 +9,17 @@ import java.io.Reader;
 import java.io.StringReader;
 
 @Component
-public class WebSocketInstruments implements CommandLineRunner {
+public class WebSocketQuotes implements CommandLineRunner {
 
-    private static final String WS_INSTRUMENTS = "ws://localhost:8032/instruments";
+    private static final String WS_QUOTES = "ws://localhost:8032/quotes";
 
     @Override
     public void run(String... args) throws Exception {
         Client client = ClientFactory.getDefault().newClient();
 
-        RequestBuilder instrumentsRequest = client.newRequestBuilder()
+        RequestBuilder quotesRequest = client.newRequestBuilder()
                 .method(Request.METHOD.GET)
-                .uri(WS_INSTRUMENTS)
+                .uri(WS_QUOTES)
                 .encoder(new Encoder<String, Reader>() {        // Stream the request body
                     @Override
                     public Reader encode(String s) {
@@ -33,8 +33,7 @@ public class WebSocketInstruments implements CommandLineRunner {
                     }
                 })
                 .transport(Request.TRANSPORT.WEBSOCKET)                        // Try WebSocket
-                .transport(Request.TRANSPORT.LONG_POLLING);                    // Fallback to Long-Polling
-
+                .transport(Request.TRANSPORT.LONG_POLLING);
 
         Socket socket = client.create();
         socket.on(new Function<Reader>() {
@@ -56,9 +55,8 @@ public class WebSocketInstruments implements CommandLineRunner {
                         // Some IOException occurred
                     }
 
-                }).open(instrumentsRequest.build())
+                }).open(quotesRequest.build())
                 .fire("echo")
                 .fire("bong");
-
     }
 }

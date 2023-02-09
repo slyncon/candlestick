@@ -1,4 +1,4 @@
-package model;
+package org.candlesticks.model;
 
 import java.time.Instant;
 

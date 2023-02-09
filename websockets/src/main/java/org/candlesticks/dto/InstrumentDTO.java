@@ -1,4 +1,4 @@
-package dto;
+package org.candlesticks.dto;
 
 public class InstrumentDTO {
 

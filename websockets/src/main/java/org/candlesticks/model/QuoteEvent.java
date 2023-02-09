@@ -1,4 +1,4 @@
-package model;
+package org.candlesticks.model;
 
 public class QuoteEvent {
     private Quote data;
