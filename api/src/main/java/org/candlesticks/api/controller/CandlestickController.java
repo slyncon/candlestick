@@ -1,8 +1,7 @@
-package org.candlesticks.controller;
+package org.candlesticks.api.controller;
 
-import lombok.AllArgsConstructor;
-import org.candlesticks.model.Candlestick;
-import org.candlesticks.service.CandlestickService;
+import org.candlesticks.api.model.Candlestick;
+import org.candlesticks.api.service.CandlestickService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/candlesticks")
-@AllArgsConstructor
 public class CandlestickController {
 
     /*
@@ -28,6 +26,10 @@ public class CandlestickController {
     * */
 
     private final CandlestickService service;
+
+    public CandlestickController(CandlestickService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<Candlestick>> findByISIN(@RequestParam String isin){

@@ -1,6 +1,6 @@
-package org.candlesticks.service;
+package org.candlesticks.api.service;
 
-import org.candlesticks.model.Candlestick;
+import org.candlesticks.api.model.Candlestick;
 
 import java.util.List;
 

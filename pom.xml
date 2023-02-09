@@ -11,11 +11,14 @@
 	<groupId>org.candlesticks</groupId>
 	<artifactId>candlesticks</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>candlesticks</name>
+	<name>candlesticks - POM Aggregator</name>
 	<description>candlesticks</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
+	<packaging>pom</packaging>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -26,11 +29,6 @@
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -50,16 +48,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+	<modules>
+		<module>api</module>
+		<module>websockets</module>
+	</modules>
 
 </project>

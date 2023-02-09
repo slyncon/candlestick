@@ -1,4 +1,4 @@
-package org.candlesticks.websocket;
+package websocket;
 
 import org.atmosphere.wasync.*;
 import org.springframework.boot.CommandLineRunner;

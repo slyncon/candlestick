@@ -1,6 +1,6 @@
-package org.candlesticks.service;
+package org.candlesticks.api.service;
 
-import org.candlesticks.model.Candlestick;
+import org.candlesticks.api.model.Candlestick;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public class CandlestickService implements CandlestickManager{
 
     @Override
     public List<Candlestick> getCandleSticks(String isin) {
-        return List.of(new Candlestick(), new Candlestick());
+        return List.of();
     }
 
     // indices for SQL.
