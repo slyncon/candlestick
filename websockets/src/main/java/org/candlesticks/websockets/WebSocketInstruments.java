@@ -19,18 +19,17 @@ import java.time.Instant;
 @Component
 public class WebSocketInstruments implements CommandLineRunner {
 
-    InstrumentRepository instrumentRepository;
-
-    public WebSocketInstruments(InstrumentRepository instrumentRepository) {
-        this.instrumentRepository = instrumentRepository;
-    }
-
     private static final String WS_INSTRUMENTS_URI = "ws://localhost:8032/instruments";
+    private final InstrumentRepository instrumentRepository;
+    private final Client client;
+
+    public WebSocketInstruments(InstrumentRepository instrumentRepository, Client client) {
+        this.instrumentRepository = instrumentRepository;
+        this.client = client;
+    }
 
     @Override
     public void run(String... args) throws Exception {
-        Client client = ClientFactory.getDefault().newClient();
-
         RequestBuilder instrumentsRequest = client.newRequestBuilder()
                 .method(Request.METHOD.GET)
                 .uri(WS_INSTRUMENTS_URI)
