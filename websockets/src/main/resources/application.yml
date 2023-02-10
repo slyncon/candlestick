@@ -1,11 +1,3 @@
 spring:
-  datasource:
-    name: candlesticks
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:candlesticks
-    generate-unique-name: false
-  h2:
-    console:
-      enabled: true
-  jpa:
-    show-sql: true
+  profiles:
+    active: dev

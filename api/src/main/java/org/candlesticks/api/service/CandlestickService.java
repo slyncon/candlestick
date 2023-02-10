@@ -22,10 +22,10 @@ public class CandlestickService implements CandlestickManager{
     @Override
     public List<Candlestick> getCandleSticks(String isin) {
 
-//        List<Quote> all = quoteRepository.findAll();
-        List<Quote> quotes = quoteRepository.findByIsin(isin);
+        List<Quote> all = quoteRepository.findAll();
+//        List<Quote> quotes = quoteRepository.findByIsin(isin);
 
-        quotes.forEach(element -> {
+        all.forEach(element -> {
             System.out.println(element);
         });
 

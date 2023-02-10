@@ -7,3 +7,10 @@ services:
     command: bash -c "cd /app && java -jar partner-service-1.0.1-all.jar --port=8032"
     ports:
       - 8032:8032
+  db:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: candlesticks
