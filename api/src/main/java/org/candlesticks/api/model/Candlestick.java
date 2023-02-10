@@ -2,6 +2,7 @@ package org.candlesticks.api.model;
 
 import java.time.Instant;
 
+
 public class Candlestick {
     private Instant openTimestamp;
     private Instant closeTimestamp;

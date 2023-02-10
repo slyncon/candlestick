@@ -1,12 +1,31 @@
 package org.candlesticks.api.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+import java.time.Instant;
+
+@Entity
 public class Instrument {
+
+    @Id
+    @GeneratedValue
+    private Integer id;
+
     private String isin;
     private String description;
+    private String type;
+    private Instant timestamp;
 
-    public Instrument(String isin, String description) {
-        this.isin = isin;
-        this.description = description;
+    public Instrument(){}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getIsin() {
@@ -23,5 +42,21 @@ public class Instrument {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
     }
 }
