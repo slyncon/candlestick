@@ -9,62 +9,70 @@ public class Candlestick {
     private Double openPrice;
     private Double highPrice;
     private Double lowPrice;
-    private Double closingPrice;
+    private Double closePrice;
 
-    public Candlestick(Instant openTimestamp, Instant closeTimestamp, Double openPrice, Double highPrice, Double lowPrice, Double closingPrice) {
+    public Candlestick(Instant openTimestamp, Instant closeTimestamp, Double openPrice, Double highPrice, Double lowPrice, Double closePrice) {
         this.openTimestamp = openTimestamp;
         this.closeTimestamp = closeTimestamp;
         this.openPrice = openPrice;
         this.highPrice = highPrice;
         this.lowPrice = lowPrice;
-        this.closingPrice = closingPrice;
+        this.closePrice = closePrice;
     }
+
+    public Candlestick(){}
 
     public Instant getOpenTimestamp() {
         return openTimestamp;
     }
 
-    public void setOpenTimestamp(Instant openTimestamp) {
+    public Candlestick setOpenTimestamp(Instant openTimestamp) {
         this.openTimestamp = openTimestamp;
+        return this;
     }
 
     public Instant getCloseTimestamp() {
         return closeTimestamp;
     }
 
-    public void setCloseTimestamp(Instant closeTimestamp) {
+    public Candlestick setCloseTimestamp(Instant closeTimestamp) {
         this.closeTimestamp = closeTimestamp;
+        return this;
     }
 
     public Double getOpenPrice() {
         return openPrice;
     }
 
-    public void setOpenPrice(Double openPrice) {
+    public Candlestick setOpenPrice(Double openPrice) {
         this.openPrice = openPrice;
+        return this;
     }
 
     public Double getHighPrice() {
         return highPrice;
     }
 
-    public void setHighPrice(Double highPrice) {
+    public Candlestick setHighPrice(Double highPrice) {
         this.highPrice = highPrice;
+        return this;
     }
 
     public Double getLowPrice() {
         return lowPrice;
     }
 
-    public void setLowPrice(Double lowPrice) {
+    public Candlestick setLowPrice(Double lowPrice) {
         this.lowPrice = lowPrice;
+        return this;
     }
 
-    public Double getClosingPrice() {
-        return closingPrice;
+    public Double getClosePrice() {
+        return closePrice;
     }
 
-    public void setClosingPrice(Double closingPrice) {
-        this.closingPrice = closingPrice;
+    public Candlestick setClosePrice(Double closePrice) {
+        this.closePrice = closePrice;
+        return this;
     }
 }
