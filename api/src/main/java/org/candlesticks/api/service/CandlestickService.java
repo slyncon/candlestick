@@ -22,14 +22,14 @@ public class CandlestickService implements CandlestickManager{
     @Override
     public List<Candlestick> getCandleSticks(String isin) {
 
-        List<Quote> all = quoteRepository.findAll();
-//        List<Quote> quotes = quoteRepository.findByIsin(isin);
-
-        all.forEach(element -> {
-            System.out.println(element);
-        });
+//        List<Quote> all = quoteRepository.findAll();
+        List<Quote> quotes = quoteRepository.findByIsin(isin);
 
         return List.of();
+    }
+
+    public List<Candlestick> getCandlestickForThePastMinuteFromQuotes(List<Quote> quotes){
+        return null;
     }
 
     // indices for SQL.
