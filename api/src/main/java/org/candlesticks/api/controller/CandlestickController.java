@@ -15,16 +15,6 @@ import java.util.List;
 @RequestMapping("/candlesticks")
 public class CandlestickController {
 
-    /*
-
-    { "data": { "description": "pulvinar nulla eius", "isin": "YH31184324D8" }, "type": "ADD" }
-    { "data": { "price": 1405.569, "isin": "YH31184324D8" }, "type": "QUOTE" }
-    { "data": { "price": 1377.4267, "isin": "YH31184324D8" }, "type": "QUOTE" }
-    { "data": { "price": 1423.2845, "isin": "YH31184324D8" }, "type": "QUOTE" }
-    { "data": { "price": 1429.1422, "isin": "YH31184324D8" }, "type": "QUOTE" }
-
-    * */
-
     private final CandlestickService service;
 
     public CandlestickController(CandlestickService service) {

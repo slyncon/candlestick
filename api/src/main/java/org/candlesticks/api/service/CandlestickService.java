@@ -6,6 +6,7 @@ import org.candlesticks.api.repository.InstrumentRepository;
 import org.candlesticks.api.repository.QuoteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -22,17 +23,13 @@ public class CandlestickService implements CandlestickManager{
     @Override
     public List<Candlestick> getCandleSticks(String isin) {
 
-//        List<Quote> all = quoteRepository.findAll();
         List<Quote> quotes = quoteRepository.findByIsin(isin);
+
+        CandlestickNoLongerThan30MinutesFromNow.validate(quotes);
+        CandlestickPerMinute.validate(quotes);
+
 
         return List.of();
     }
-
-    public List<Candlestick> getCandlestickForThePastMinuteFromQuotes(List<Quote> quotes){
-        return null;
-    }
-
-    // indices for SQL.
-    // Replica db - only for fetching and reading, another DB for writing.
 
 }

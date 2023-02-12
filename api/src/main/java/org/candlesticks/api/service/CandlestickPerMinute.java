@@ -2,21 +2,20 @@ package org.candlesticks.api.service;
 
 import org.candlesticks.api.model.Candlestick;
 import org.candlesticks.api.model.Quote;
+import org.springframework.cglib.core.Local;
 
 import java.time.*;
 import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class CandlestickForMinute implements CandlestickValidation{
+public class CandlestickPerMinute {
 
 //    https://stackoverflow.com/questions/34438656/grouping-java-8-dates-in-intervals
-    @Override
-    public List<Candlestick> validate(List<Quote> quotes) {
+    public static List<Candlestick> validate(List<Quote> quotes) {
+
+        List<Candlestick> candlesticks = new ArrayList<>();
+
 
 //        Set<Quote> quoteSetOrderedByTimestamp = new TreeSet<Quote>(new QuoteTimestampComparator());
 //        quoteSetOrderedByTimestamp.addAll(quotes);
@@ -36,6 +35,21 @@ public class CandlestickForMinute implements CandlestickValidation{
         Map<Integer, List<LocalDateTime>> timestampsPerMinute =
                 timestamps.stream()
                         .collect(Collectors.groupingBy(x -> x.get(ChronoField.MINUTE_OF_DAY) / 1 ));
+
+        timestampsPerMinute.entrySet().forEach(element -> {
+
+            Instant openTimestamp = element.getValue().stream().findFirst().get().toInstant(ZoneOffset.UTC);
+
+//        Candlestick candlestick = new Candlestick()
+//                .setOpenTimestamp()
+//                .setOpenPrice()
+//                .setHighPrice()
+//                .setLowPrice()
+//                .setClosePrice()
+//                .setCloseTimestamp();
+
+        });
+
 
         /*
             openTimestamp: 2019-03-05 13:00:00

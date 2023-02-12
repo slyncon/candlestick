@@ -6,11 +6,11 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class CandlestickNoLongerThan30Minutes {
+public class CandlestickNoLongerThan30MinutesFromNow {
 
 //      https://stackoverflow.com/questions/52623282/how-to-get-30-min-back-instance-object-instance-now-30-min
 
-    public List<Quote> quotesNoLessThan30MinutesFromNow(List<Quote> quotes) {
+    public static List<Quote> validate(List<Quote> quotes) {
 
         List<Quote> quotesForThePast30Minutes = new ArrayList<>();
 
@@ -27,7 +27,6 @@ public class CandlestickNoLongerThan30Minutes {
         });
 
         return quotesForThePast30Minutes;
-
     }
 
 }

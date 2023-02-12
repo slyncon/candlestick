@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CandlestickServiceTest {
 
@@ -191,9 +190,9 @@ public class CandlestickServiceTest {
             .setClosePrice(12.00)
             .setCloseTimestamp(Instant.parse("2019-03-05T13:01:00.000000+00:00"));
 
-        CandlestickForMinute candlestickForMinute = new CandlestickForMinute();
+        CandlestickPerMinute candlestickPerMinute = new CandlestickPerMinute();
 
-        List<Candlestick> actualCandleSticks = candlestickForMinute.validate(quotes);
+        List<Candlestick> actualCandleSticks = CandlestickPerMinute.validate(quotes);
 
         assertEquals(expectedCandlestick, actualCandleSticks.get(0));
 
@@ -205,9 +204,9 @@ public class CandlestickServiceTest {
         List<Quote> expectedQuotes = mockListQuotesForAMinute();
         List<Quote> wrongQuotes = mockListQuotesWithLessThan30Minutes();
 
-        CandlestickNoLongerThan30Minutes candlestickForMinute = new CandlestickNoLongerThan30Minutes();
+        CandlestickNoLongerThan30MinutesFromNow candlestickForMinute = new CandlestickNoLongerThan30MinutesFromNow();
 
-        List<Quote> actualQuotes = candlestickForMinute.quotesNoLessThan30MinutesFromNow(wrongQuotes);
+        List<Quote> actualQuotes = candlestickForMinute.validate(wrongQuotes);
 
         assertEquals(expectedQuotes, actualQuotes);
 
