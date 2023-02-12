@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 public class Quote {
@@ -15,6 +16,7 @@ public class Quote {
     private String isin;
     private Double price;
     private Instant timestamp;
+    private LocalDateTime timestampLocalDateTime;
 
     public Quote(){}
 
@@ -48,5 +50,14 @@ public class Quote {
 
     public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public LocalDateTime getTimestampLocalDateTime() {
+        return timestampLocalDateTime;
+    }
+
+    public Quote setTimestampLocalDateTime(LocalDateTime timestampLocalDateTime) {
+        this.timestampLocalDateTime = timestampLocalDateTime;
+        return this;
     }
 }
