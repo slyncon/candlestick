@@ -29,13 +29,16 @@ public class CandlestickForMinute implements CandlestickValidation{
 
         List<LocalDateTime> timestamps = new ArrayList<>();
 
-        for (Quote element : quotes){
+        quotes.forEach(element -> {
             timestamps.add(LocalDateTime.ofInstant(element.getTimestamp(), ZoneOffset.UTC));
-        }
+        });
 
-        Map<Integer, List<LocalDateTime>> map =
+
+        Map<Integer, List<LocalDateTime>> timestampsPerMinute =
                 timestamps.stream()
                         .collect(Collectors.groupingBy(x -> x.get(ChronoField.MINUTE_OF_DAY) / 1 ));
+
+        System.out.println(timestampsPerMinute);
 
 //      code above is spliting based on minutes
 
@@ -62,10 +65,4 @@ public class CandlestickForMinute implements CandlestickValidation{
         return null;
     }
 
-    public static Instant roundInstant(Instant instant, Duration interval, Instant start) {
-        long multiple =
-                Duration.between(start, instant)
-                        .getSeconds() / interval.getSeconds();
-        return start.plus(interval.multipliedBy(multiple));
-    }
 }
