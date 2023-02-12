@@ -33,14 +33,9 @@ public class CandlestickForMinute implements CandlestickValidation{
             timestamps.add(LocalDateTime.ofInstant(element.getTimestamp(), ZoneOffset.UTC));
         });
 
-
         Map<Integer, List<LocalDateTime>> timestampsPerMinute =
                 timestamps.stream()
                         .collect(Collectors.groupingBy(x -> x.get(ChronoField.MINUTE_OF_DAY) / 1 ));
-
-        System.out.println(timestampsPerMinute);
-
-//      code above is spliting based on minutes
 
         /*
             openTimestamp: 2019-03-05 13:00:00
