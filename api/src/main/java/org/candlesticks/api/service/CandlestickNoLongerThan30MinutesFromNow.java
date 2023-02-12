@@ -4,7 +4,8 @@ import org.candlesticks.api.model.Quote;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CandlestickNoLongerThan30MinutesFromNow {
 

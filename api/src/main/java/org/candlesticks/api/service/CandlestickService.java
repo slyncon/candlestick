@@ -26,7 +26,6 @@ public class CandlestickService implements CandlestickManager{
         List<Quote> quotes = quoteRepository.findByIsin(isin);
 
         CandlestickNoLongerThan30MinutesFromNow.validate(quotes);
-
         List<Candlestick> candlesticks = CandlestickPerMinute.validate(quotes);
 
         return candlesticks;
