@@ -12,11 +12,9 @@ import java.util.List;
 @Service
 public class CandlestickService implements CandlestickManager{
 
-    private final InstrumentRepository instrumentRepository;
     private final QuoteRepository quoteRepository;
 
-    public CandlestickService(InstrumentRepository instrumentRepository, QuoteRepository quoteRepository) {
-        this.instrumentRepository = instrumentRepository;
+    public CandlestickService(QuoteRepository quoteRepository) {
         this.quoteRepository = quoteRepository;
     }
 
