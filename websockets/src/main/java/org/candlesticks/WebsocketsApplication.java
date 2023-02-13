@@ -1,4 +1,4 @@
-package org.candlesticks.websockets;
+package org.candlesticks;
 
 import org.atmosphere.wasync.Client;
 import org.atmosphere.wasync.ClientFactory;
