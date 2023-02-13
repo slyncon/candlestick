@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,9 +23,15 @@ public class CandlestickController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Candlestick>> findByISIN(@RequestParam String isin){
+    public ResponseEntity<List<Candlestick>> findByISIN(@RequestParam String isin)  {
 
-        List<Candlestick> candleSticks = service.getCandleSticks(isin);
+        List<Candlestick> candleSticks = new ArrayList<>();
+
+        try {
+            candleSticks = service.getCandleSticks(isin);
+        } catch (Exception e) {
+            return new ResponseEntity<>(candleSticks, HttpStatus.NOT_FOUND);
+        }
 
         return new ResponseEntity(candleSticks, HttpStatus.OK);
     }

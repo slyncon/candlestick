@@ -1,8 +1,10 @@
 package org.candlesticks.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -11,11 +13,15 @@ import java.time.LocalDateTime;
 public class Quote {
 
     @Id @GeneratedValue
+    @JsonIgnore
     private Integer id;
 
     private String isin;
     private Double price;
     private Instant timestamp;
+
+    @JsonIgnore
+    @Transient
     private LocalDateTime timestampLocalDateTime;
 
     public Quote(){}

@@ -1,5 +1,6 @@
 package org.candlesticks.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -11,6 +12,7 @@ public class Instrument {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Integer id;
 
     private String isin;

@@ -19,9 +19,13 @@ public class CandlestickService implements CandlestickManager{
     }
 
     @Override
-    public List<Candlestick> getCandleSticks(String isin) {
+    public List<Candlestick> getCandleSticks(String isin) throws Exception {
 
         List<Quote> quotes = quoteRepository.findByIsin(isin);
+
+        if (quotes.isEmpty()) {
+            throw new Exception("No quotes found for that ISIN");
+        }
 
         CandlestickNoLongerThan30MinutesFromNow.validate(quotes);
         List<Candlestick> candlesticks = CandlestickPerMinute.validate(quotes);
