@@ -19,7 +19,7 @@ public class CandlestickPerMinute {
 
         List<Candlestick> candlesticks = new ArrayList<>();
 
-        Collections.sort(quotes, Comparator.comparing(Quote::getTimestamp));
+        quotes.sort(Comparator.comparing(Quote::getTimestamp));
 
         quotes.forEach(element -> element.setTimestampLocalDateTime(LocalDateTime.ofInstant(element.getTimestamp(), ZoneOffset.UTC)));
 
