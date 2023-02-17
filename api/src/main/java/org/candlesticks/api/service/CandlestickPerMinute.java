@@ -11,19 +11,25 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.*;
+
 public class CandlestickPerMinute {
 
     public static List<Candlestick> validate(List<Quote> quotes) {
 
-        String isin = quotes.stream().findFirst().get().getIsin();
-
         List<Candlestick> candlesticks = new ArrayList<>();
 
-        quotes.sort(Comparator.comparing(Quote::getTimestamp));
+        String isin = quotes.stream()
+                .findFirst()
+                .map(Quote::getIsin)
+                .orElseThrow();
 
-        quotes.forEach(element -> element.setTimestampLocalDateTime(LocalDateTime.ofInstant(element.getTimestamp(), ZoneOffset.UTC)));
+        List<Quote> orderedQuotes = quotes.stream()
+                .map(element -> element.setTimestampLocalDateTime(LocalDateTime.ofInstant(element.getTimestamp(), ZoneOffset.UTC)))
+                .sorted(comparing(Quote::getTimestamp))
+                .toList();
 
-        Map<String, Map<Integer, List<Quote>>> quotesMapGroupedByMinute = quotes.stream()
+        Map<String, Map<Integer, List<Quote>>> quotesMapGroupedByMinute = orderedQuotes.stream()
                 .collect(Collectors.groupingBy(
                         Quote::getIsin,
                         Collectors.groupingBy(x -> x.getTimestampLocalDateTime().get(ChronoField.MINUTE_OF_DAY))));
