@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/api/src/main/java/org/candlesticks/api/studies/apples/
