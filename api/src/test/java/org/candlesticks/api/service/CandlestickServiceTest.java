@@ -150,4 +150,17 @@ public class CandlestickServiceTest {
         assertEquals(actualCandlestick.getClosePrice(), expectedCandlestick.getClosePrice());
         assertEquals(actualCandlestick.getCloseTimestamp(), expectedCandlestick.getCloseTimestamp());
     }
+
+    @Test
+    public void shouldThrowExceptionWhenIsinIsNotFound(){
+
+        List<Quote> wrongQuotes = mockListQuotesWithLessThan30Minutes();
+
+        List<Quote> actualQuotes = CandlestickNoLongerThan30MinutesFromNow.validate(wrongQuotes);
+
+        boolean timestampBefore30Min = actualQuotes.stream().
+                anyMatch(quote -> quote.getTimestamp().equals(TIMESTAMP_BEFORE_30_MIN));
+
+        assertFalse(timestampBefore30Min);
+    }
 }
