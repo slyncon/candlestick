@@ -24,13 +24,12 @@ public class CandlestickPerMinute {
                 .map(Quote::getIsin)
                 .orElseThrow();
 
-        List<Quote> orderedQuotes = quotes.stream()
+        Map<String, Map<Integer, List<Quote>>> quotesMapGroupedByMinute = quotes.stream()
                 .map(element -> element.setTimestampLocalDateTime(LocalDateTime.ofInstant(element.getTimestamp(), ZoneOffset.UTC)))
                 .sorted(comparing(Quote::getTimestamp))
-                .toList();
-
-        Map<String, Map<Integer, List<Quote>>> quotesMapGroupedByMinute = orderedQuotes.stream()
-                .collect(Collectors.groupingBy(
+                .toList()
+                .stream()
+                    .collect(Collectors.groupingBy(
                         Quote::getIsin,
                         Collectors.groupingBy(x -> x.getTimestampLocalDateTime().get(ChronoField.MINUTE_OF_DAY))));
 
