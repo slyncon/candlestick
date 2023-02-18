@@ -39,8 +39,8 @@ public class CandlestickPerMinute {
             Instant openTimestamp = firstQuote.getTimestamp().truncatedTo(ChronoUnit.MINUTES);
             Double openPrice = firstQuote.getPrice();
 
-            Double highPrice = Collections.max(list, Comparator.comparing(Quote::getPrice)).getPrice();
-            Double lowPrice = Collections.min(list, Comparator.comparing(Quote::getPrice)).getPrice();
+            Double highPrice = list.stream().max(comparing(Quote::getPrice)).get().getPrice();
+            Double lowPrice = list.stream().min(comparing(Quote::getPrice)).get().getPrice();
 
             Quote lastQuote = list.stream().reduce((prev, next) -> next).orElse(null);
             Double closePrice = lastQuote.getPrice();
