@@ -2,15 +2,16 @@ package org.candlesticks.api.service;
 
 import org.candlesticks.api.model.Candlestick;
 import org.candlesticks.api.model.Quote;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CandlestickServiceTest {
 
@@ -163,4 +164,12 @@ public class CandlestickServiceTest {
 
         assertFalse(timestampBefore30Min);
     }
+
+    @Test
+    public void shouldThrowExceptionWhenNoIsinIsProvided(){
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            CandlestickPerMinute.validate(new ArrayList<Quote>());
+        });
+    }
+
 }
