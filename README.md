@@ -1,4 +1,4 @@
-# Candlesticks Graph API published by websockets
+# Candlesticks Graph API for last 30 minutes quotes, grouped by 1 minute and read from websockets
 
 This is a web application that exposes a REST API. This application uses Maven as the build tool. The concept of multi-module maven projects were used.
 You should see three projects:
@@ -6,64 +6,66 @@ You should see three projects:
 - api
 - websockets
 
-## Intro and terminology
+## Introduction and terminology
 
-#### Instruments and Quotes
-Every asset that can be traded is represented by an “instrument”, which has a unique identifier (ISIN).
-Each time the instrument price changes, an update message called “quote” is broadcasted for this instrument to inform about the change.
+#### Quotes and Instruments
+Every tradeable asset is represented by a "instrument," which is identified by a specific number (ISIN).
+An update message named "quote" is broadcast for this instrument every time the price of the instrument changes to let other users know about the change.
 
-#### What is a candlestick?
-A [candlestick](https://en.wikipedia.org/wiki/Candlestick_chart) is a representation that describes the price movement for a given instrument in a fixed amount of time, usually one minute.
-We will be using a simplified version of candlesticks for this challenge.
+#### A andlestick?
+A [candlestick](https://en.wikipedia.org/wiki/Candlestick_chart) is a visual representation of the price movement for a specific instrument over a predetermined period of time, often one minute.
+For this task, we'll be employing a streamlined version of candlesticks.
 
-![chart](https://t4.ftcdn.net/jpg/02/79/65/79/360_F_279657943_FALhJZ6g4shXyfqMIRifp1l6lhiwhbwm.jpg)
+![chart](https://www.investopedia.com/thmb/pWBTORzzifDoVLg_mw8NmvQKccg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/UnderstandingBasicCandlestickCharts-01_2-4d7b49098a0e4515bbb0b8f62cc85d77.png)
 
-The basic idea is that we don't need to know about _all_ prices changes within a given timeframe.
-Usually we want them grouped in 1 minute chunks, because we are more interested in some key data points within any given minute.
-In theory, a candlestick “contains” all quotes, where the timestamp of the quote is higher than the openTimestamp and lower than the closeTimestamp (`openTimestamp <= quoteTimestamp < closeTimestamp`).
-However, for each candle for each given minute, we only present the following data points to the user:
-- the first quotes price, that was received (openPrice)
-- the last quotes, that was received (closePrice)
-- the highest quote price that was observed (highPrice)
-- the lowest quote price that was observed (lowPrice)
-- the timestamp when the candlestick was opened (openTimestamp)
-- the timestamp when the candlestick was closed (closeTimestamp)
+
+The fundamental tenet is that we don't have to be aware of _all_ price changes that occur during a certain period of time.
+Since we are more interested in a few critical data points inside each minute, we typically prefer them to be clustered into 1-minute intervals.
+Theoretically, every quote that has a timestamp that is more than the openTimestamp and less than the closeTimestamp (`openTimestamp <= quoteTimestamp < closeTimestamp`).
+Nevertheless, we just show the user the following information for each candle for each minute:
+- The price of the initial quote that was received (openPrice)
+- the latest quotes that were submitted (closePrice)
+- The recorded highest quote price (highPrice)
+- The recorded lowest quote price (lowPrice)
+- the time the candlestick was opened, in seconds (openTimestamp)
+  At the instant the candlestick was closed, in timestamp (closeTimestamp)
 
 ##### Example
-Assume the following (simplified) data was received for an instrument:
+Assuming that an instrument got the (simplified) data below:
 ```
-@2019-03-05 13:00:05 price: 10
-@2019-03-05 13:00:06 price: 11
-@2019-03-05 13:00:13 price: 15
-@2019-03-05 13:00:19 price: 11
-@2019-03-05 13:00:32 price: 13
-@2019-03-05 13:00:49 price: 12
-@2019-03-05 13:00:57 price: 12
-@2019-03-05 13:01:00 price: 9
+2020-11-25 09:00:04 price: 7
+2020-11-25 09:00:06 price: 8
+2020-11-25 09:00:16 price: 8
+2020-11-25 09:00:23 price: 10
+2020-11-25 09:00:31 price: 5
+2020-11-25 09:00:46 price: 6
+2020-11-25 09:00:52 price: 8
+2020-11-25 09:01:00 price: 12
 ```
-The resulting minute candle would have these attributes:
+The qualities of the produced minute candle would be:
 ```
-openTimestamp: 2019-03-05 13:00:00
-openPrice: 10
-highPrice: 15
-lowPrice: 10
-closePrice: 12
-closeTimestamp: 13:01:00
+openTimestamp: 2020-11-25 09:00:00
+openPrice: 7
+highPrice: 10
+lowPrice: 5
+closePrice: 8
+closeTimestamp: 09:01:00
 ```
-Note that the last received quote with a price of 9 is not part of this candlestick anymore, but belongs to the new candlestick.
 
-### Output (Aggregated-Price History)
-The output (and the main goal with this project) is the aggregated price history endpoint.
-It should provide a 30 minutes quotes history in the form of minute candlesticks (check information below) for any requested instrument.
+Notice the latest recent quote you received, with a price of 12, no longer belongs to this candlestick and is now a member of the new candlestick.
 
-End-users of the service are interested in a specific instruments price history, and they want it in a format that is easy to read.
-Hence we should provide candlesticks.
-To get these candlesticks, the user needs to provide the instrument id (ISIN) as a query parameter (e.g. `http://localhost:9000/candlesticks?isin={ISIN}`).
+### History of Aggregated Prices - Output
+The aggregated price history endpoint is the primary objective.
+For any specified instrument, it must produce a 30-minute quotes history presented as minute candlesticks (see details below).
 
-The system only needs to return the candlesticks for the last 30 minutes, including the most recent prices.
-If there weren't any quotes received for more than a minute, instead of missing candlesticks in the 30 minute window, values from the previous candle are reused.
+Customers of the service are interested in the price history of a certain instrument, and they want information in an accessible format. Therefore, candlesticks
+must be provided.
+The user must enter the instrument id (ISIN) as a query parameter in order to obtain the candlesticks (e.g. `http://localhost:9000/candlesticks?isin={ISIN}`).
 
-# Order for running
+The system just needs to return the candlesticks and most recent prices for the previous 30 minutes.
+Instead of missing candlesticks in the 30-minute window if no quotes were received for more than a minute, values from the prior candle are used.
+
+# Running order
 
 - docker-compose
 - websockets
